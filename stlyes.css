@@ -1,0 +1,400 @@
+:root {
+            --primary-color: #6c5ce7;
+            --danger-color: #e17055;
+            --success-color: #00b894;
+            --light-color: #f8f9fa;
+            --dark-color: #2d3436;
+            --accent-color: #a29bfe;
+            --bg-color: #f5f6fa;
+            --card-bg: #ffffff;
+            --text-color: #2d3436; /* Default text color (dark) */
+            --border-radius: 10px;
+            --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        [data-theme="dark"] {
+            --bg-color: #121212;
+            --card-bg: #1e1e1e;
+            --text-color: #ffffff; /* Changed to pure white for dark theme */
+            --light-color: #1e1e1e;
+            --dark-color: #f5f6fa;
+            --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
+            --accent-color: #7c4dff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding: 15px;
+            min-height: 10vh;
+        }
+        
+        @media (min-width: 768px) {
+            body {
+                padding: 20px;
+                transition: background 0.4s ease, color 0.4s ease;
+            }
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 30px;
+        }
+
+        .app-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .header-content {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .header-content > div {
+            flex-grow: 1;
+            text-align: center;
+        }
+        
+        .header-content button {
+            flex-shrink: 0; /* Prevent button from shrinking */
+        }
+
+        .app-header h1 {
+            color: var(--text-color); /* Now uses the dynamic text color */
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        @media (min-width: 768px) {
+            .app-header h1 {
+                font-size: 2.5rem;
+            }
+        }
+
+        .subtitle {
+            color: #7f8c8d; /* This will remain grey, consider changing to var(--text-color) if it should also be white in dark mode */
+            font-size: 1.1rem;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 25px;
+            box-shadow: var(--box-shadow);
+            transition: all 0.3s ease;
+            border-left: 6px solid var(--accent-color);
+        }
+        
+        @media (min-width: 768px) {
+            .card {
+                padding: 25px;
+                margin-bottom: 30px;
+            }
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--text-color); /* Ensure labels also change color */
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            font-size: 16px;
+            background-color: var(--card-bg); /* Ensure input background changes */
+            color: var(--text-color); /* Ensure input text color changes */
+        }
+
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+            display: block;
+            margin: 0 auto;
+            width: fit-content;
+        }
+
+        .btn-primary:hover {
+            background-color: #3a5ae8;
+        }
+
+        .btn-danger {
+            background-color: var(--danger-color);
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background-color: #e84118;
+        }
+
+        .expenses-list {
+            margin-top: 30px;
+        }
+
+        .expense-item {
+            display: flex;
+            flex-direction: column;
+            padding: 15px;
+            background: var(--card-bg);
+            border-radius: 12px;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+            box-shadow: var(--box-shadow);
+            border-left: 5px solid var(--accent-color);
+        }
+        
+        @media (min-width: 768px) {
+            .expense-item {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+                padding: 20px;
+            }
+        }
+
+        .expense-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .expense-info {
+            flex: 1;
+        }
+
+        .expense-amount {
+            font-weight: 700;
+            color: var(--danger-color);
+        }
+
+        .expense-category {
+            display: inline-block;
+            padding: 4px 8px;
+            background-color: #e3e7fb; /* This will remain light blue, consider changing for dark mode */
+            color: var(--primary-color);
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .expense-date {
+            font-size: 12px;
+            color: #6c757d; /* This will remain grey, consider changing to var(--text-color) for dark mode */
+            margin-top: 4px;
+        }
+
+        .summary {
+            margin-top: 30px;
+            padding: 25px 30px;
+            background: var(--card-bg); /* Changed to use card-bg for consistency */
+            border-radius: 12px;
+            box-shadow: var(--box-shadow); /* Changed to use box-shadow for consistency */
+            text-align: center;
+            border-top: 4px solid var(--primary-color);
+            color: var(--text-color); /* Ensure summary text changes color */
+        }
+
+        .summary-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--text-color); /* Changed to use text-color for dark mode */
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .total-amount {
+            font-size: 32px;
+            font-weight: 800;
+            color: var(--text-color); /* Changed to use text-color for dark mode */
+            font-family: 'Arial', sans-serif;
+        }
+
+        .total-card {
+            margin-top: 30px;
+            padding: 25px;
+            background: var(--card-bg);
+            border-radius: 16px;
+            box-shadow: var(--box-shadow);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            border-left: 5px solid var(--primary-color);
+        }
+
+        .total-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary-color), #5de0e6);
+        }
+
+        .total-card-title {
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-color); /* Changed to use text-color for dark mode */
+            margin-bottom: 5px;
+        }
+
+        .total-card-amount {
+            font-size: 36px;
+            font-weight: 800;
+            color: var(--text-color); /* Changed to use the dynamic text color */
+            margin: 10px 0;
+            position: relative;
+        }
+
+        .total-card-amount::after {
+            content: '';
+            display: block;
+            width: 50px;
+            height: 3px;
+            background: var(--primary-color);
+            margin: 15px auto;
+        }
+
+        .total-card-desc {
+            font-size: 14px;
+            color: var(--text-color); /* Changed to use text-color for dark mode */
+            font-style: italic;
+        }
+
+        .no-expenses {
+            text-align: center;
+            padding: 30px;
+            color: var(--text-color); /* Changed to use text-color for dark mode */
+            font-style: italic;
+        }
+
+        /* Theme toggle button */
+        .btn-theme {
+            /* Removed margin-left: 20px; as auto will handle it */
+            padding: 10px 15px;
+            background: linear-gradient(145deg, #ffffff, #e6e6e6);
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1.25rem;
+            color: var(--text-color);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2),
+            inset 0 0 10px rgba(255,255,255,0.5);
+            position: relative;
+            overflow: hidden;
+        }
+
+        [data-theme="dark"] .btn-theme {
+            background: linear-gradient(145deg, #3a3a3a, #2a2a2a);
+            box-shadow: 0 4px 10px rgba(87, 83, 83, 0.4),
+                        inset 0 0 10px rgba(138, 129, 129, 0.1);
+        }
+
+        .btn-theme::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            background: linear-gradient(45deg, 
+            rgba(255,255,255,0.3) 0%, 
+            rgba(255,255,255,0) 50%);
+            transform: rotate(30deg);
+            pointer-events: none;
+        }
+
+        .btn-theme:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.3),
+            inset 0 0 15px rgba(255,255,255,0.8);
+        }
+
+        [data-theme="dark"] .btn-theme:hover {
+            box-shadow: 0 6px 15px rgba(0,0,0,0.5),
+            inset 0 0 15px rgba(255,255,255,0.2);
+        }
+
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            .expense-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .expense-actions {
+                margin-top: 10px;
+                width: 100%;
+                display: flex;
+                justify-content: flex-end;
+            }
+
+            /* Keep the header layout consistent on mobile */
+            .header-content {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+            }
+            
+            .header-content > div {
+                text-align: center; /* Center align text on mobile */
+                flex-grow: 1;
+            }
+            
+            .app-header h1 {
+                font-size: 1.5rem; /* Slightly smaller on mobile */
+            }
+            
+            .subtitle {
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            input, select, button {
+                padding: 8px 12px;
+                font-size: 14px;
+            }
+        }
