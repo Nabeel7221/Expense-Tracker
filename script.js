@@ -74,6 +74,9 @@ function saveExpenses() {
     }
 }
 
+// Global variable to track editing expense id
+let editingExpenseId = null;
+
 // Render expenses list
 function renderExpenses() {
     const expensesList = document.getElementById('expenses-list');
@@ -103,6 +106,9 @@ function renderExpenses() {
                         <div class="expense-date">Added: ${expense.date}</div>
                     </div>
                     <div class="expense-actions">
+                        <button class="btn-edit" onclick="editExpense('${expense.id}')">
+                            <i class="fas fa-edit"></i> Edit
+                        </button>
                         <button class="btn-danger" onclick="deleteExpense('${expense.id}')">
                             <i class="fas fa-trash"></i> Delete
                         </button>
@@ -149,8 +155,33 @@ function deleteExpense(id) {
         saveExpenses();
         renderExpenses();
         updateTotal(true);
-        showToast(`Deleted ₹${expense.amount.toFixed(2)} expense`, 'info');
+        showToast(`Deleted ₹${expense.amount.toFixed(2)} expense`, 'error');
         debug(`Deleted expense: ${expense.description}`);
+    }
+}
+
+// Edit expense function
+function editExpense(id) {
+    debug(`Editing expense: ${id}`);
+
+    const expense = expenses.find(exp => exp.id === id);
+    if (!expense) {
+        debug('Expense not found for editing');
+        return;
+    }
+
+    // Populate form fields with expense data
+    document.getElementById('amount').value = expense.amount;
+    document.getElementById('description').value = expense.description;
+    document.getElementById('category').value = expense.category;
+
+    // Set editing state
+    editingExpenseId = id;
+
+    // Change button text to Update Expense
+    const addButton = document.getElementById('add-expense-btn');
+    if (addButton) {
+        addButton.textContent = 'Update Expense';
     }
 }
 
@@ -348,11 +379,37 @@ function handleFormSubmission() {
     button.disabled = true;
     button.classList.add('loading');
 
-    debug('Adding expense...');
+    debug('Adding or updating expense...');
 
-    // Add expense (with small delay for UX)
+    // Add or update expense (with small delay for UX)
     setTimeout(() => {
-        const success = addExpense(amount, description, category);
+        let success = false;
+        if (editingExpenseId) {
+            // Update existing expense
+            const expenseIndex = expenses.findIndex(exp => exp.id === editingExpenseId);
+            if (expenseIndex !== -1) {
+                expenses[expenseIndex].amount = amount;
+                expenses[expenseIndex].description = description.trim();
+                expenses[expenseIndex].category = category;
+                expenses[expenseIndex].date = new Date().toLocaleDateString();
+                expenses[expenseIndex].timestamp = new Date().toISOString();
+
+                success = saveExpenses();
+                if (success) {
+                    renderExpenses();
+                    updateTotal(true);
+                    showToast(`Updated ₹${amount.toFixed(2)} expense`, 'success');
+                    debug(`Successfully updated expense: ${editingExpenseId}`);
+                }
+            }
+            // Reset editing state
+            editingExpenseId = null;
+            // Reset button text
+            button.textContent = 'Add Expense';
+        } else {
+            // Add new expense
+            success = addExpense(amount, description, category);
+        }
 
         // Reset form and button
         button.disabled = false;
@@ -362,7 +419,7 @@ function handleFormSubmission() {
             document.getElementById('expense-form').reset();
             debug('Form reset successfully');
         } else {
-            debug('Failed to add expense');
+            debug('Failed to add or update expense');
         }
     }, 300);
 }
